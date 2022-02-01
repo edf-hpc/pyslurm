@@ -47,8 +47,8 @@ except ImportError:
     fatal("Please use Cython version >= %s" % (CYTHON_VERSION_MIN))
 
 
-if sys.version_info[:2] < (3, 6):
-    fatal("Python 3.6 or higher is required to run PySlurm.")
+if sys.version_info[:2] < (3, 5):
+    fatal("Python 3.5 or higher is required to run PySlurm.")
 
 
 class Pyslurm:
