@@ -40,11 +40,11 @@ try:
     from Cython.Compiler.Version import version as cython_version
 
     if LooseVersion(cython_version) < LooseVersion(CYTHON_VERSION_MIN):
-        info(f"Cython version %s installed {cython_version}")
-        fatal(f"Please use Cython version >= {CYTHON_VERSION_MIN}")
+        info("Cython version %s installed" % (cython_version))
+        fatal("Please use Cython version >= %s" % (CYTHON_VERSION_MIN))
 except ImportError:
     fatal("Cython (https://cython.org) is required to build PySlurm")
-    fatal(f"Please use Cython version >= {CYTHON_VERSION_MIN}")
+    fatal("Please use Cython version >= %s" % (CYTHON_VERSION_MIN))
 
 
 if sys.version_info[:2] < (3, 6):
@@ -117,7 +117,7 @@ class Pyslurm:
     def make_extension(self, extension_name):
         """Generate an Extension object from its dotted name"""
         extension_path = extension_name.replace(".", os.path.sep) + ".pyx"
-        runtime_library_dirs = [self.slurm_lib, f"{self.slurm_lib}/slurm"]
+        runtime_library_dirs = [self.slurm_lib, self.slurm_lib+"/slurm"]
         return Extension(
             extension_name,
             [extension_path],
@@ -139,7 +139,7 @@ class Pyslurm:
         """
         a = int(hex_inc_version, 16)
         b = (a >> 16 & 0xFF, a >> 8 & 0xFF, a & 0xFF)
-        return f"{b[0]:02d}.{b[1]:02d}.{b[2]:02d}"
+        return "{0:02d}.{1:02d}.{2:02d}".format(*b)
 
     def read_inc_version(self, fname):
         """
@@ -154,7 +154,7 @@ class Pyslurm:
                     hex_version = line.split(" ")[2].strip()
                     info(
                         "Build - Detected Slurm version - "
-                        f"{hex_version} {self.inc_vers2str(hex_version)}"
+                        "%s %s" % (hex_version, self.inc_vers2str(hex_version))
                     )
 
         if not hex_version:
@@ -172,16 +172,16 @@ class Pyslurm:
         for lib_path in ["lib64", "lib"]:
             slurm_lib_path = os.path.join(slurm_path, lib_path)
 
-            if os.path.exists(f"{slurm_lib_path}/libslurm.so"):
-                info(f"Build - Found Slurm shared library in {slurm_lib_path}")
+            if os.path.exists(slurm_lib_path+"/libslurm.so"):
+                info("Build - Found Slurm shared library in "+slurm_lib_path)
                 return slurm_lib_path
 
         # if base dir given then check this
-        if os.path.exists(f"{slurm_path}/libslurm.so"):
-            info(f"Build - Found Slurm shared library in {slurm_path}")
+        if os.path.exists(slurm_path+"/libslurm.so"):
+            info("Build - Found Slurm shared library in "+slurm_path)
             return slurm_path
         else:
-            fatal(f"Build - Cannot locate Slurm shared library in {slurm_path}")
+            fatal("Build - Cannot locate Slurm shared library in "+slurm_path)
             return None
 
     def create_bluegene_include(self):
@@ -192,7 +192,7 @@ class Pyslurm:
         try:
             with open("pyslurm/bluegene.pxi", "w", encoding="latin-1") as f:
                 f.write("DEF BG=1\n")
-                f.write(f"DEF BGQ={self.bgq}\n")
+                f.write("DEF BGQ=%s\n" % (self.bgq))
         except IOError:
             fatal("Build - Unable to write Blue Gene type to pyslurm/bluegene.pxi")
 
@@ -216,22 +216,22 @@ class Pyslurm:
             if os.path.exists(file):
                 if os.path.isfile(file):
                     try:
-                        info(f"Clean - removing {file}")
+                        info("Clean - removing "+file)
                         os.unlink(file)
                     except OSError:
-                        fatal(f"Clean - failed to remove {file}")
+                        fatal("Clean - failed to remove "+file)
                 else:
-                    fatal(f"Clean - {file} is not a file !")
+                    fatal("Clean - %s is not a file !" % (file))
 
         info("Clean - completed")
 
     def build(self):
         """Build the PySlurm package"""
         info("")
-        info(f'Building PySlurm ({self.about["__version__"]})')
+        info("Building PySlurm (%s)" % (self.about["__version__"]))
         info("------------------------------")
         info("")
-        info(f"Cython version {cython_version} installed")
+        info("Cython version %s installed" % (cython_version))
         info("")
 
         # Clean up temporary build objects first
@@ -254,33 +254,33 @@ class Pyslurm:
             self.usage()
         elif self.slurm_dir and not (self.slurm_lib or self.slurm_inc):
             self.slurm_lib = self.slurm_dir
-            self.slurm_inc = f"{self.slurm_dir}/include"
+            self.slurm_inc = self.slurm_dir+"/include"
         elif not self.slurm_dir and not self.slurm_lib and not self.slurm_inc:
             self.slurm_lib = self.default_slurm_dir
-            self.slurm_inc = f"{self.default_slurm_dir}/include"
+            self.slurm_inc = self.default_slurm_dir+"/include"
         elif not self.slurm_dir and (not self.slurm_lib or not self.slurm_inc):
             self.usage()
 
         # Test for slurm.h maybe from derived paths
-        if os.path.exists(f"{self.slurm_inc}/slurm/slurm.h"):
-            info(f"Build - Found Slurm header in {self.slurm_inc}/slurm")
-        elif os.path.exists(f"{self.slurm_inc}/slurm.h"):
-            info(f"Build - Found Slurm header in {self.slurm_inc}")
+        if os.path.exists(self.slurm_inc+"/slurm/slurm.h"):
+            info("Build - Found Slurm header in %s /slurm" % (self.slurm_inc))
+        elif os.path.exists(self.slurm_inc+"/slurm.h"):
+            info("Build - Found Slurm header in "+self.slurm_inc)
         else:
-            fatal(f"Build - Cannot locate the Slurm include in {self.slurm_inc}")
+            fatal("Build - Cannot locate the Slurm include in "+self.slurm_inc)
 
         # Test for Slurm MAJOR.MINOR version match (ignoring .MICRO)
         try:
-            slurm_inc_ver = self.read_inc_version(f"{self.slurm_inc}/slurm/slurm.h")
+            slurm_inc_ver = self.read_inc_version(self.slurm_inc+"/slurm/slurm.h")
         except IOError:
-            slurm_inc_ver = self.read_inc_version(f"{self.slurm_inc}/slurm.h")
+            slurm_inc_ver = self.read_inc_version(self.slurm_inc+"/slurm.h")
 
         major = (int(slurm_inc_ver, 16) >> 16) & 0xFF
         minor = (int(slurm_inc_ver, 16) >> 8) & 0xFF
 
         if LooseVersion(str(major) + "." + str(minor)) != LooseVersion(SLURM_VERSION):
             fatal(
-                f"Build - Incorrect slurm version detected, requires Slurm {SLURM_VERSION}"
+                "Build - Incorrect slurm version detected, requires Slurm "+SLURM_VERSION
             )
 
         # Test for libslurm in lib64 and then lib
