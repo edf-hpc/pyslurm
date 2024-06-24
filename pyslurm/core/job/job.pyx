@@ -650,7 +650,7 @@ cdef class Job:
         if self.ptr.state_desc:
             return cstr.to_unicode(self.ptr.state_desc)
 
-        return cstr.to_unicode(slurm_job_reason_string(self.ptr.state_reason))
+        return cstr.to_unicode(slurm_job_state_reason_string(self.ptr.state_reason))
 
     @property
     def is_requeueable(self):

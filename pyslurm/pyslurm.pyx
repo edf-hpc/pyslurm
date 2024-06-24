@@ -2214,7 +2214,7 @@ cdef class job:
                 Job_dict['state_reason'] = self._record.state_desc.decode("UTF-8").replace(" ", "_")
             else:
                 Job_dict['state_reason'] = stringOrNone(
-                    slurm.slurm_job_reason_string(
+                    slurm.slurm_job_state_reason_string(
                         <slurm.job_state_reason>self._record.state_reason
                     ), ''
                 )
@@ -6538,7 +6538,7 @@ def get_job_state_reason(inx):
     Returns:
         (str): Reason string
     """
-    job_reason = stringOrNone(slurm.slurm_job_reason_string(inx), '')
+    job_reason = stringOrNone(slurm.slurm_job_state_reason_string(inx), '')
     return job_reason
 
 
