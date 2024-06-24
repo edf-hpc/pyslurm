@@ -1855,8 +1855,7 @@ cdef class job:
         After calling this, the job pointer can be used in other methods
         to operate on the information of the job.
 
-        This method accepts both string and integer format of the jobid. It
-        calls slurm_xlate_job_id to convert the jobid appropriately.
+        This method only accepts integer jobid.
 
         Raises an value error if the jobid does not correspond to a existing job.
 
@@ -1867,16 +1866,13 @@ cdef class job:
             int apiError
             int rc
 
-        # jobid can be given as int or string
         if isinstance(jobid, int) or isinstance(jobid, long):
-            jobid = str(jobid).encode("UTF-8")
+            jobid = long(jobid)
         else:
-            jobid = jobid.encode("UTF-8")
-        # convert jobid appropriately for slurm
-        jobid_xlate = slurm.slurm_xlate_job_id(jobid)
+            raise ValueError("_load_single_job needs a integer jobid: %s", jobid)
 
         # load the job which sets the self._job_ptr pointer
-        rc = slurm.slurm_load_job(&self._job_ptr, jobid_xlate, self._ShowFlags)
+        rc = slurm.slurm_load_job(&self._job_ptr, jobid, self._ShowFlags)
 
         if rc != slurm.SLURM_SUCCESS:
             apiError = slurm.slurm_get_errno()
@@ -2409,13 +2405,11 @@ cdef class job:
             (str): The content of the batch script.
         """
         if isinstance(jobid, int) or isinstance(jobid, long):
-            jobid = str(jobid).encode("UTF-8")
+            jobid = long(jobid)
         else:
-            jobid = jobid.encode("UTF-8")
+            raise ValueError("_load_single_job needs a integer jobid: %s", jobid)
 
-        jobid_xlate = slurm.slurm_xlate_job_id(jobid)
-
-        return pyslurm.core.job.Job(jobid_xlate).get_batch_script()
+        return pyslurm.core.job.Job(jobid).get_batch_script()
 
     cdef int fill_job_desc_from_opts(self, dict job_opts, slurm.job_desc_msg_t *desc):
         """

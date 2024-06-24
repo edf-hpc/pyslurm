@@ -2582,8 +2582,6 @@ cdef extern from "slurm/slurm.h":
 
     int slurm_update_job2(job_desc_msg_t* job_msg, job_array_resp_msg_t** resp)
 
-    uint32_t slurm_xlate_job_id(char* job_id_str)
-
     int slurm_get_job_steps(time_t update_time, uint32_t job_id, uint32_t step_id, job_step_info_response_msg_t** step_response_pptr, uint16_t show_flags)
 
     int slurm_find_step_ids_by_container_id(uint16_t show_flags, uid_t uid, const char* container_id, list_t* steps)
