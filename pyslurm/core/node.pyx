@@ -671,17 +671,6 @@ cdef class Node:
         return u32_parse(self.info.energy.ave_watts, on_noval=0)
 
     @property
-    def external_sensors(self):
-        if not self.info.ext_sensors:
-            return {}
-
-        return {
-            "joules_total":  u64_parse(self.info.ext_sensors.consumed_energy),
-            "current_watts": u32_parse(self.info.ext_sensors.current_watts),
-            "temperature":   u32_parse(self.info.ext_sensors.temperature)
-        }
-
-    @property
     def _node_state(self):
         idle_cpus = self.idle_cpus
         state = self.info.node_state

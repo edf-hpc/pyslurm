@@ -356,7 +356,6 @@ cdef extern from "slurm/slurm.h":
     uint32_t DEBUG_FLAG_SACK
     uint32_t DEBUG_FLAG_SWITCH
     uint32_t DEBUG_FLAG_ENERGY
-    uint32_t DEBUG_FLAG_EXT_SENSORS
     uint32_t DEBUG_FLAG_LICENSE
     uint32_t DEBUG_FLAG_PROFILE
     uint32_t DEBUG_FLAG_INTERCONNECT
@@ -1039,14 +1038,6 @@ cdef extern from "slurm/slurm.h":
 
     ctypedef acct_gather_energy acct_gather_energy_t
 
-    cdef struct ext_sensors_data:
-        uint64_t consumed_energy
-        uint32_t temperature
-        time_t energy_update_time
-        uint32_t current_watts
-
-    ctypedef ext_sensors_data ext_sensors_data_t
-
     cdef struct power_mgmt_data:
         uint32_t current_watts
         uint64_t joule_counter
@@ -1718,7 +1709,6 @@ cdef extern from "slurm/slurm.h":
         uint16_t cpus_efctv
         char* cpu_spec_list
         acct_gather_energy_t* energy
-        ext_sensors_data_t* ext_sensors
         char* extra
         power_mgmt_data_t* power
         char* features
@@ -2061,9 +2051,6 @@ cdef extern from "slurm/slurm.h":
         char* epilog
         uint32_t epilog_msg_time
         char* epilog_slurmctld
-        char* ext_sensors_type
-        uint16_t ext_sensors_freq
-        void* ext_sensors_conf
         char* fed_params
         uint32_t first_job_id
         uint16_t fs_dampening_factor

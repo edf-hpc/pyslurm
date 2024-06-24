@@ -639,7 +639,6 @@ cdef class config:
             Ctl_dict['epilog'] = stringOrNone(self.__Config_ptr.epilog, '')
             Ctl_dict['epilog_msg_time'] = self.__Config_ptr.epilog_msg_time
             Ctl_dict['epilog_slurmctld'] = stringOrNone(self.__Config_ptr.epilog_slurmctld, '')
-            Ctl_dict['ext_sensors_type'] = stringOrNone(self.__Config_ptr.ext_sensors_type, '')
             Ctl_dict['federation_parameters'] = stringOrNone(self.__Config_ptr.fed_params, '')
             Ctl_dict['first_job_id'] = self.__Config_ptr.first_job_id
             Ctl_dict['fs_dampening_factor'] = self.__Config_ptr.fs_dampening_factor
@@ -6249,9 +6248,6 @@ cdef inline list debug_flags2str(uint64_t debug_flags):
 
     if (debug_flags & DEBUG_FLAG_ENERGY):
         debugFlags.append('Energy')
-
-    if (debug_flags & DEBUG_FLAG_EXT_SENSORS):
-        debugFlags.append('ExtSensors')
 
     if (debug_flags & DEBUG_FLAG_FEDR):
         debugFlags.append('Federation')
