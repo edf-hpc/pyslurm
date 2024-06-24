@@ -115,7 +115,6 @@ cdef extern from "slurm/slurmdb.h":
     uint8_t CLUSTER_FLAG_MULTSD
     uint16_t CLUSTER_FLAG_A9
     uint16_t CLUSTER_FLAG_FE
-    uint16_t CLUSTER_FLAG_CRAY
     uint16_t CLUSTER_FLAG_FED
     uint16_t CLUSTER_FLAG_EXT
     uint8_t ASSOC_FLAG_DELETED

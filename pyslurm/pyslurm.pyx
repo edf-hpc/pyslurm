@@ -2806,26 +2806,8 @@ cdef class job:
 #                  cname, isenv ? "SLURM_CLUSTERS" : "--cluster")
             sys.exit(slurm.SLURM_ERROR)
 
-    cdef bool is_alps_cray_system(self):
-        if slurm.working_cluster_rec:
-            return slurm.working_cluster_rec.flags & slurm.CLUSTER_FLAG_CRAY
-        if ALPS_CRAY_SYSTEM:
-            return True
-        return False
-
     cdef int _check_cluster_specific_settings(self, slurm.job_desc_msg_t *req):
         cdef int rc = slurm.SLURM_SUCCESS
-
-        if self.is_alps_cray_system():
-            if req.shared and req.shared != <uint16_t>slurm.NO_VAL:
-                print("--share is not supported on Cray/ALPS systems.")
-                req.shared = <uint16_t>slurm.NO_VAL
-            if req.overcommit and req.overcommit != <uint8_t>slurm.NO_VAL:
-                print("--overcommit is not supported on Cray/ALPS systems.")
-                req.overcommit = False
-            if req.wait_all_nodes and req.wait_all_nodes != <uint16_t>slurm.NO_VAL:
-                print("--wait-all-nodes is handled automatically on Cray/ALPS systems.")
-                req.wait_all_nodes = <uint16_t>slurm.NO_VAL
         return rc
 
     def submit_batch_job(self, job_opts):
@@ -6307,9 +6289,6 @@ cdef inline list debug_flags2str(uint64_t debug_flags):
 
     if (debug_flags & DEBUG_FLAG_SWITCH):
         debugFlags.append('Switch')
-
-    if (debug_flags & DEBUG_FLAG_TIME_CRAY):
-        debugFlags.append('TimeCray')
 
     if (debug_flags & DEBUG_FLAG_TRACE_JOBS):
         debugFlags.append('TraceJobs')

@@ -377,7 +377,6 @@ cdef extern from "slurm/slurm.h":
     uint64_t DEBUG_FLAG_BURST_BUF
     uint64_t DEBUG_FLAG_CPU_FREQ
     uint64_t DEBUG_FLAG_POWER
-    uint64_t DEBUG_FLAG_TIME_CRAY
     uint64_t DEBUG_FLAG_DB_ARCHIVE
     uint64_t DEBUG_FLAG_DB_TRES
     uint64_t DEBUG_FLAG_JOBCOMP
@@ -765,10 +764,7 @@ cdef extern from "slurm/slurm.h":
 
     cdef enum select_plugin_type:
         SELECT_PLUGIN_LINEAR
-        SELECT_PLUGIN_SERIAL
-        SELECT_PLUGIN_CRAY_LINEAR
         SELECT_PLUGIN_CONS_TRES
-        SELECT_PLUGIN_CRAY_CONS_TRES
 
     cdef enum switch_plugin_type:
         SWITCH_PLUGIN_NONE
