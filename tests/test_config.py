@@ -52,7 +52,6 @@ def test_config_scontrol():
     assert config_info["acct_gather_profile_type"] == sctl_dict["AcctGatherProfileType"]
     assert config_info["authtype"] == sctl_dict["AuthType"]
     assert config_info["cluster_name"] == sctl_dict["ClusterName"]
-    assert config_info["core_spec_plugin"] == sctl_dict["CoreSpecPlugin"]
     assert config_info["first_job_id"] == int(sctl_dict["FirstJobId"])
     assert config_info["job_acct_gather_type"] == sctl_dict["JobAcctGatherType"]
     assert config_info["job_comp_host"] == sctl_dict["JobCompHost"]

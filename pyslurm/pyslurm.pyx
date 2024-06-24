@@ -622,7 +622,6 @@ cdef class config:
             Ctl_dict['bcast_exclude'] = stringOrNone(self.__Config_ptr.bcast_exclude, '')
             Ctl_dict['bcast_parameters'] = stringOrNone(self.__Config_ptr.bcast_parameters, '')
             Ctl_dict['boot_time'] = self.__Config_ptr.boot_time
-            Ctl_dict['core_spec_plugin'] = stringOrNone(self.__Config_ptr.core_spec_plugin, '')
             Ctl_dict['cli_filter_plugins'] = stringOrNone(self.__Config_ptr.cli_filter_plugins, '')
             Ctl_dict['cluster_name'] = stringOrNone(self.__Config_ptr.cluster_name, '')
             Ctl_dict['comm_params'] = stringOrNone(self.__Config_ptr.comm_params, '')

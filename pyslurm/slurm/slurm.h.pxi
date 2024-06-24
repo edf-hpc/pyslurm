@@ -2028,7 +2028,6 @@ cdef extern from "slurm/slurm.h":
         time_t boot_time
         void* cgroup_conf
         char* cli_filter_plugins
-        char* core_spec_plugin
         char* cluster_name
         char* comm_params
         uint16_t complete_wait
