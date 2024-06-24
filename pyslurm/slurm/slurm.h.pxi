@@ -159,7 +159,6 @@ cdef extern from "slurm/slurm.h":
     uint8_t MEM_BIND_TYPE_FLAGS_MASK
     uint8_t NODE_STATE_BASE
     uint32_t NODE_STATE_FLAGS
-    uint8_t NODE_STATE_NET
     uint8_t NODE_STATE_RES
     uint8_t NODE_STATE_UNDRAIN
     uint8_t NODE_STATE_CLOUD
