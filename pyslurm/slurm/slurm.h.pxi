@@ -982,10 +982,6 @@ cdef extern from "slurm/slurm.h":
 
     ctypedef xlist list_t
 
-    ctypedef listIterator* ListIterator
-
-    ctypedef listIterator list_itr_t
-
     ctypedef void (*ListDelF)(void* x)
 
     ctypedef int (*ListCmpF)(void* x, void* y)

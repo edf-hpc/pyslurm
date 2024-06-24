@@ -541,7 +541,7 @@ cdef class config:
         cdef:
             void *ret_list = NULL
             slurm.List config_list = NULL
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
 
             config_key_pair_t *keyPairs
 
@@ -587,7 +587,7 @@ cdef class config:
         cdef:
             void *ret_list = NULL
             slurm.List config_list = NULL
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
             char tmp_str[128]
 
             config_key_pair_t *keyPairs
@@ -819,7 +819,7 @@ cdef class config:
 #            config_list = <slurm.List>self.__Config_ptr.select_conf_key_pairs
 #            if config_list is not NULL:
 #                listNum = slurm.slurm_list_count(config_list)
-#                iters = slurm.slurm_list_iterator_create(config_list)
+#                iters* = slurm.slurm_list_iterator_create(config_list)
 #                for i in range(listNum):
 #                    keyPairs = <config_key_pair_t *>slurm.slurm_list_next(iters)
 #                    name = keyPairs.name
@@ -5227,7 +5227,7 @@ cdef class qos:
     cdef __get(self):
         cdef:
             slurm.List qos_list = NULL
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
             int i = 0
             int listNum = 0
             dict Q_dict = {}
@@ -5346,7 +5346,7 @@ cdef class slurmdb_jobs:
             int apiError = 0
             dict J_dict = {}
             slurm.List JOBSList
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
 
 
         if clusters:
@@ -5600,7 +5600,7 @@ cdef class slurmdb_reservations:
         """
         cdef:
             slurm.List reservation_list
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
             slurm.slurmdb_reservation_rec_t *reservation
             int i = 0
             int j = 0
@@ -5709,7 +5709,7 @@ cdef class slurmdb_clusters:
         """
         cdef:
             slurm.List clusters_list
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
             slurm.slurmdb_cluster_rec_t *cluster = NULL
             int rc = slurm.SLURM_SUCCESS
             int i = 0
@@ -5820,7 +5820,7 @@ cdef class slurmdb_events:
         """
         cdef:
             slurm.List event_list
-            slurm.ListIterator iters = NULL
+            slurm.list_itr_t* iters = NULL
             slurm.slurmdb_event_rec_t *event = NULL
             int i = 0
             int listNum = 0
@@ -5886,9 +5886,9 @@ cdef class slurmdb_reports:
         """
         cdef:
             slurm.List slurmdb_report_cluster_list = NULL
-            slurm.ListIterator itr = NULL
-            slurm.ListIterator cluster_itr = NULL
-            slurm.ListIterator tres_itr = NULL
+            slurm.list_itr_t* itr = NULL
+            slurm.list_itr_t* cluster_itr = NULL
+            slurm.list_itr_t* tres_itr = NULL
             slurm.slurmdb_cluster_cond_t cluster_cond
             slurm.slurmdb_report_assoc_rec_t *slurmdb_report_assoc = NULL
             slurm.slurmdb_report_cluster_rec_t *slurmdb_report_cluster = NULL

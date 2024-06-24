@@ -71,7 +71,7 @@ cdef extern from *:
     ctypedef struct sbcast_cred
     ctypedef struct hostlist
     ctypedef struct xlist
-    ctypedef struct listIterator
+    ctypedef struct list_itr_t
     ctypedef struct slurm_step_ctx_struct
     ctypedef struct slurm_ctl_conf_t
 
