@@ -409,17 +409,17 @@ cdef extern from "slurm/slurm.h":
     uint8_t PROLOG_FLAG_X11
     uint8_t PROLOG_FLAG_DEFER_BATCH
     uint8_t PROLOG_FLAG_FORCE_REQUEUE_ON_FAIL
-    uint8_t CTL_CONF_OR
-    uint8_t CTL_CONF_SJC
-    uint8_t CTL_CONF_DRJ
-    uint8_t CTL_CONF_ASRU
-    uint8_t CTL_CONF_PAM
-    uint8_t CTL_CONF_WCKEY
-    uint8_t CTL_CONF_IPV4_ENABLED
-    uint8_t CTL_CONF_IPV6_ENABLED
-    uint16_t CTL_CONF_SJX
-    uint16_t CTL_CONF_SJS
-    uint16_t CTL_CONF_SJE
+    uint8_t CONF_FLAG_OR
+    uint8_t CONF_FLAG_SJC
+    uint8_t CONF_FLAG_DRJ
+    uint8_t CONF_FLAG_ASRU
+    uint8_t CONF_FLAG_PAM
+    uint8_t CONF_FLAG_WCKEY
+    uint8_t CONF_FLAG_IPV4_ENABLED
+    uint8_t CONF_FLAG_IPV6_ENABLED
+    uint16_t CONF_FLAG_SJX
+    uint16_t CONF_FLAG_SJS
+    uint16_t CONF_FLAG_SJE
     uint8_t LOG_FMT_ISO8601_MS
     uint8_t LOG_FMT_ISO8601
     uint8_t LOG_FMT_RFC5424_MS
