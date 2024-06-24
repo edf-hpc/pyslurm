@@ -182,7 +182,6 @@ cdef extern from "slurm/slurm.h":
     uint32_t NODE_STATE_POWER_UP
     uint32_t NODE_STATE_POWER_DRAIN
     uint32_t NODE_STATE_DYNAMIC_NORM
-    uint8_t SLURM_SSL_SIGNATURE_LENGTH
     uint8_t SHOW_ALL
     uint8_t SHOW_DETAIL
     uint8_t SHOW_MIXED
