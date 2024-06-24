@@ -1171,10 +1171,6 @@ cdef class Job:
         return u64_parse_bool_flag(self.ptr.bitflags, slurm.SPREAD_JOB)
 
     @property
-    def power_options(self):
-        return power_type_int_to_list(self.ptr.power_flags)
-
-    @property
     def is_cronjob(self):
         return u64_parse_bool_flag(self.ptr.bitflags, slurm.CRON_JOB)
 

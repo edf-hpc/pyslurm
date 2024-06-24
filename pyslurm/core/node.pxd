@@ -210,8 +210,6 @@ cdef class Node:
             Number of idle CPUs.
         cpu_binding (str):
             Default CPU-Binding on the node.
-        cap_watts (int):
-            Node cap watts.
         current_watts (int):
             Current amount of watts consumed on the node.
         avg_watts (int):

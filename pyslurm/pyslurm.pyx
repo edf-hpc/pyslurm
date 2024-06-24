@@ -693,8 +693,6 @@ cdef class config:
             Ctl_dict['over_time_limit'] = int16orNone(self.__Config_ptr.over_time_limit)
             Ctl_dict['plugindir'] = stringOrNone(self.__Config_ptr.plugindir, '')
             Ctl_dict['plugstack'] = stringOrNone(self.__Config_ptr.plugstack, '')
-            Ctl_dict['power_parameters'] = stringOrNone(self.__Config_ptr.power_parameters, '')
-            Ctl_dict['power_plugin'] = stringOrNone(self.__Config_ptr.power_plugin, '')
             Ctl_dict['prep_params'] = stringOrNone(self.__Config_ptr.prep_params, '')
             Ctl_dict['prep_plugins'] = stringOrNone(self.__Config_ptr.prep_plugins, '')
 
@@ -2160,7 +2158,6 @@ cdef class job:
             Job_dict['pn_min_memory'] = self._record.pn_min_memory
             Job_dict['pn_min_cpus'] = self._record.pn_min_cpus
             Job_dict['pn_min_tmp_disk'] = self._record.pn_min_tmp_disk
-            Job_dict['power_flags'] = self._record.power_flags
 
             if self._record.preemptable_time:
                 slurm.slurm_make_time_str(
@@ -2762,9 +2759,6 @@ cdef class job:
 
         if job_opts.get("wait4switch") and job_opts.get("wait4switch") >= 0:
             desc.wait4switch = job_opts.get("wait4switch")
-
-        if job_opts.get("power_flags"):
-            desc.power_flags = job_opts.get("power_flags")
 
         if job_opts.get("job_flags"):
             desc.bitflags = job_opts.get("job_flags")
@@ -3410,13 +3404,6 @@ cdef class node:
                 Host_dict['reason_uid'] = None
             else:
                 Host_dict['reason_uid'] = record.reason_uid
-
-            # Power Management
-            Host_dict['power_mgmt'] = {}
-            if (not record.power or (record.power.cap_watts == slurm.NO_VAL)):
-                Host_dict['power_mgmt']["cap_watts"] = None
-            else:
-                Host_dict['power_mgmt']["cap_watts"] = record.power.cap_watts
 
             # Energy statistics
             Host_dict['energy'] = {}

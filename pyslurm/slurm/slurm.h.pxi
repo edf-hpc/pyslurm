@@ -280,7 +280,6 @@ cdef extern from "slurm/slurm.h":
     uint8_t JOB_SHARED_OK
     uint8_t JOB_SHARED_USER
     uint8_t JOB_SHARED_MCS
-    uint8_t SLURM_POWER_FLAGS_LEVEL
     uint16_t CORE_SPEC_THREAD
     uint8_t JOB_DEF_CPU_PER_GPU
     uint8_t JOB_DEF_MEM_PER_GPU
@@ -622,8 +621,6 @@ cdef extern from "slurm/slurm.h":
         WAIT_BURST_BUFFER_RESOURCE
         WAIT_BURST_BUFFER_STAGING
         FAIL_BURST_BUFFER_OP
-        WAIT_POWER_NOT_AVAIL
-        WAIT_POWER_RESERVED
         WAIT_ASSOC_GRP_UNK
         WAIT_ASSOC_GRP_UNK_MIN
         WAIT_ASSOC_GRP_UNK_RUN_MIN
@@ -1051,10 +1048,8 @@ cdef extern from "slurm/slurm.h":
     ctypedef ext_sensors_data ext_sensors_data_t
 
     cdef struct power_mgmt_data:
-        uint32_t cap_watts
         uint32_t current_watts
         uint64_t joule_counter
-        uint32_t new_cap_watts
         uint32_t max_watts
         uint32_t min_watts
         time_t new_job_time
@@ -1137,7 +1132,6 @@ cdef extern from "slurm/slurm.h":
         uint8_t overcommit
         char* partition
         uint16_t plane_size
-        uint8_t power_flags
         char* prefer
         uint32_t priority
         uint32_t profile
@@ -1294,7 +1288,6 @@ cdef extern from "slurm/slurm.h":
         uint64_t pn_min_memory
         uint16_t pn_min_cpus
         uint32_t pn_min_tmp_disk
-        uint8_t power_flags
         time_t preempt_time
         time_t preemptable_time
         time_t pre_sus_time
@@ -2135,8 +2128,6 @@ cdef extern from "slurm/slurm.h":
         uint16_t over_time_limit
         char* plugindir
         char* plugstack
-        char* power_parameters
-        char* power_plugin
         uint32_t preempt_exempt_time
         uint16_t preempt_mode
         char* preempt_params
