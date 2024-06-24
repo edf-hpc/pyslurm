@@ -196,7 +196,6 @@ cdef extern from "slurm/slurm.h":
     uint16_t CR_ONE_TASK_PER_CORE
     uint16_t CR_PACK_NODES
     uint16_t LL_SHARED_GRES
-    uint16_t CR_OTHER_CONS_TRES
     uint16_t CR_CORE_DEFAULT_DIST_BLOCK
     uint16_t CR_LLN
     uint16_t MULTIPLE_SHARING_GRES_PJ
