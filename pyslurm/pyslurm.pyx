@@ -5710,7 +5710,6 @@ cdef class slurmdb_clusters:
                     Cluster_rec_dict['tres'] = stringOrNone(cluster.tres_str, '')
                     Cluster_rec_dict['control_port'] = cluster.control_port
                     Cluster_rec_dict['rpc_version'] = cluster.rpc_version
-                    Cluster_rec_dict['plugin_id_select'] = cluster.plugin_id_select
                     Cluster_rec_dict['flags'] = cluster.flags
                     Cluster_rec_dict['dimensions'] = cluster.dimensions
                     Cluster_rec_dict['classification'] = cluster.classification

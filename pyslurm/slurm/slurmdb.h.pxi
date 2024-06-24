@@ -457,7 +457,6 @@ cdef extern from "slurm/slurmdb.h":
         pthread_mutex_t lock
         char* name
         char* nodes
-        uint32_t plugin_id_select
         slurmdb_assoc_rec_t* root_assoc
         uint16_t rpc_version
         List send_rpc
